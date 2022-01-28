@@ -87,9 +87,9 @@
 
         <ol>
           <li><a href="index.html">Home</a></li>
-          <li>Portfolio Details</li>
+          <li>Detail Pelatihan</li>
         </ol>
-        <h2>Portfolio Details</h2>
+        <h2>Detail Pelatihan : <span id="t-name-3"></span></h2>
 
       </div>
     </section><!-- End Breadcrumbs -->
@@ -117,6 +117,7 @@
                 <li><strong>Kategori</strong>: <span id="t-category"></span></li>
                 <li><strong>Investasi</strong>: <span id="t-price"></span> /orang</li>
                 <li><strong>Dibuat Tanggal</strong>: <span id="t-created"></span></li>
+                <li><strong>Status</strong>: <span class="badge bg-success">Active</span></li>
               </ul>
             </div>
             <div class="portfolio-description">
@@ -129,6 +130,85 @@
 
       </div>
     </section><!-- End Portfolio Details Section -->
+
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+
+          <div class="container" data-aos="fade-up">
+    
+            <header class="section-header">
+              <p>Registrasi</p>
+            </header>
+    
+            <div class="row gy-4">
+    
+              <div class="col-lg-6">
+    
+                <div class="row gy-4">
+                  <div class="col-md-6">
+                    <div class="info-box">
+                      <i class="bi bi-geo-alt"></i>
+                      <h3>Address</h3>
+                      <p>A108 Adam Street,<br>New York, NY 535022</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="info-box">
+                      <i class="bi bi-telephone"></i>
+                      <h3>Call Us</h3>
+                      <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="info-box">
+                      <i class="bi bi-envelope"></i>
+                      <h3>Email Us</h3>
+                      <p>info@example.com<br>contact@example.com</p>
+                    </div>
+                  </div>
+                </div>
+    
+              </div>
+    
+              <div class="col-lg-6">
+                <form class="php-email-form" id="register-training">
+                  <div class="row gy-4">
+    
+                    <div class="col-md-6">
+                      <input type="text" name="name" class="form-control" placeholder="Nama Anda" required>
+                    </div>
+    
+                    <div class="col-md-6 ">
+                      <input type="email" class="form-control" name="email" placeholder="Email Anda" required>
+                    </div>
+                    
+                    <div class="col-md-6 " style="display: none;">
+                      <input type="number" id="training-id" class="form-control" name="training_id" required>
+                    </div>
+
+                    <div class="col-md-6 ">
+                      <input type="text" id="training-name" class="form-control" name="training_name" required readonly>
+                    </div>
+    
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" name="phone" placeholder="Nomor Telepon" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                    </div>
+    
+                    <div class="col-md-12 text-center">    
+                      <button type="submit" id="submit-button">Register</button>
+                    </div>
+    
+                  </div>
+                </form>
+    
+              </div>
+    
+            </div>
+    
+          </div>
+    
+        </section><!-- End Contact Section -->
+    
 
   </main><!-- End #main -->
 
@@ -228,10 +308,10 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="assets/js/custom.js"></script>
 
   <script>
