@@ -1,5 +1,5 @@
 const API_TOKEN = "asd"
-const API_URL = "https://script.google.com/macros/s/AKfycbwFivaCGkG8hqREjwjK9d1nhgVD5V6ZYsDi-jaxpjKYjEuweTbllovlfz6z9YYgoJzi/exec"
+const API_URL = "https://script.google.com/macros/s/AKfycbxQrsMQRMC9rLr8kbDTOqngkFbNf3_DsPJM8LpQKVkeWr71fsRCB9bZQcnmCM-5-YRI/exec"
 var footerYear = new Date().getFullYear()
 
 document.getElementById('footer-year').innerHTML = footerYear
@@ -51,8 +51,54 @@ function notification(status, header, msg){
       )
 }
 
+function indexSlider(){
+    var swiper = new Swiper(".main-slider", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+
+}
+
+function getSliderImage(){
+    var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=slider_image`)
+    data.data.forEach(r=>{
+      var res = `<div class="swiper-slide"><img src="${r.image}" alt="${r.id}"></div>`
+      
+      document.getElementById('main-slider').innerHTML += res;
+    })
+
+    var swiper = new Swiper(".main-slider", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+}
+
 function getPriorityTrainingData(){
-    var data = httpGet(`${API_URL}?token=${API_TOKEN}&priority=true`)
+    var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&priority=true`)
     data.data.forEach(r=>{
       var res = `<div class="col-lg-4 col-md-6 portfolio-item filter-${r.category}">
                 <div class="portfolio-wrap">
@@ -83,7 +129,7 @@ function getTrainingDataByID(){
     if(!id){
         return window.location.href = "/index.html";
     }
-    var data = httpGet(`${API_URL}?token=${API_TOKEN}&id=${id}`)
+    var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&id=${id}`)
 
     data.data.forEach(r=>{
         var res = `<div class="swiper-slide">

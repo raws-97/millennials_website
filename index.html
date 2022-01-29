@@ -88,7 +88,7 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex align-items-center">
 
-    <div class="container">
+    <!-- <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center">
           <h1 data-aos="fade-up">The Millennials Institute</h1>
@@ -106,8 +106,19 @@
           <img src="assets/img/hero-img.png" class="img-fluid" alt="">
         </div>
       </div>
-    </div>
+    </div> -->
 
+    <div class="container">
+      <div class="row">
+        <div class="swiper main-slider">
+          <div class="swiper-wrapper" id="main-slider">
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
   </section><!-- End Hero -->
 
   <main id="main">
@@ -625,6 +636,9 @@
   <script src="assets/js/custom.js"></script>
   <script>
     getPriorityTrainingData()
+    getSliderImage()
+
+    
   </script>
 
 </body>
