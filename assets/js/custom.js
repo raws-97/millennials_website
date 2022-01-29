@@ -61,7 +61,7 @@ function getPriorityTrainingData(){
                     <h4>${r.name}</h4>
                     <p>${r.category}</p>
                     <div class="portfolio-links">
-                      <a href="training-class.html?id=${r.id}" title="More Details"><i class="bi bi-link"></i></a>
+                      <a href="training-class.html?id=${r.id}" title="Learn More"><i class="bi bi-link"></i></a>
                     </div>
                   </div>
                 </div>
