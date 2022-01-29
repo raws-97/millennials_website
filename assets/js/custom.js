@@ -1,5 +1,8 @@
 const API_TOKEN = "asd"
 const API_URL = "https://script.google.com/macros/s/AKfycbwFivaCGkG8hqREjwjK9d1nhgVD5V6ZYsDi-jaxpjKYjEuweTbllovlfz6z9YYgoJzi/exec"
+var footerYear = new Date().getFullYear()
+
+document.getElementById('footer-year').innerHTML = footerYear
 
 function httpGet(theUrl){
     var xmlHttp = new XMLHttpRequest();
@@ -58,7 +61,7 @@ function getPriorityTrainingData(){
                     <h4>${r.name}</h4>
                     <p>${r.category}</p>
                     <div class="portfolio-links">
-                      <a href="portfolio-details.html?id=${r.id}" title="More Details"><i class="bi bi-link"></i></a>
+                      <a href="training-class.html?id=${r.id}" title="More Details"><i class="bi bi-link"></i></a>
                     </div>
                   </div>
                 </div>
@@ -77,6 +80,9 @@ function getParamsFromURL(url, params){
 function getTrainingDataByID(){
     var url = new URL(window.location.href)
     var id = url.searchParams.get("id");
+    if(!id){
+        return window.location.href = "/index.html";
+    }
     var data = httpGet(`${API_URL}?token=${API_TOKEN}&id=${id}`)
 
     data.data.forEach(r=>{
