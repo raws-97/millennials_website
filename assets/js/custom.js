@@ -134,9 +134,6 @@ function getTrainingDataByID(){
     data.data.forEach(r=>{
         var res = `<div class="swiper-slide">
                         <img src="${r.media_1}" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="${r.media_2}" alt="">
                     </div>`
         document.getElementById('image-slider').innerHTML += res;
         setValueToElement('t-name', r.name)
