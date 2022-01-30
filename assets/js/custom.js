@@ -1,5 +1,5 @@
 const API_TOKEN = "asd"
-const API_URL = "https://script.google.com/macros/s/AKfycbxQrsMQRMC9rLr8kbDTOqngkFbNf3_DsPJM8LpQKVkeWr71fsRCB9bZQcnmCM-5-YRI/exec"
+const API_URL = "https://script.google.com/macros/s/AKfycbzyzIxQG0JsvZk3F6OI8eu9dbLQFTiYiygV-nBx1jlkOOnrga7dDSJi4zolWAGMU5Yo/exec"
 var footerYear = new Date().getFullYear()
 
 document.getElementById('footer-year').innerHTML = footerYear
