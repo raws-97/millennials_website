@@ -130,7 +130,9 @@ function getTrainingDataByID(){
         return window.location.href = "/index.html";
     }
     var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&id=${id}`)
-
+    if(data.data.length == 0){
+      window.location.href = "/index.html"
+    } else {
     data.data.forEach(r=>{
         var res = `<div class="swiper-slide">
                         <img src="${r.media_1}" alt="">
@@ -146,6 +148,7 @@ function getTrainingDataByID(){
         document.getElementById('training-id').value = id
         document.getElementById('training-name').value = r.name
     })
+  }
 }
 
 document.getElementById('register-training').addEventListener('submit', function (event) {
