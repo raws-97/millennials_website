@@ -151,9 +151,56 @@ function getTrainingDataByID(){
   }
 }
 
-document.getElementById('register-training').addEventListener('submit', function (event) {
+function registerTraining(){
+  document.getElementById('register-training').addEventListener('submit', function (event) {
+
+    event.preventDefault();
+      display('submit-button', 'none')
+      
+      var serializeForm = function (form) {
+          var obj = {};
+          var formData = new FormData(form);
+          for (var key of formData.keys()) {
+              obj[key] = formData.get(key);
+          }
+          return obj;
+      };
+  
+    fetch(API_URL+"?target=register", {
+      method: 'POST',
+      body: JSON.stringify(serializeForm(event.target)),
+      headers: {
+        'Content-type': 'text/plain;charset=utf-8'
+      }
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    }).then(function (data) {
+      notification('success', "Sukses!", "Terimakasih. Data anda sudah berhasil kami terima. Tim kami akan segera menghubungi anda.")
+          document.getElementById("register-training").reset();
+          display('submit-button', 'block')
+          setTimeout(function(){
+              location.reload()
+          }, 3000);
+    }).catch(function (error) {
+      console.warn(error);
+      notification('error', "Oops!", "Terjadi kesalahan, silahkan coba lagi.")
+          display('submit-button', 'block')
+    });
+  });
+  
+}
+
+
+document.getElementById('register-training-needs').addEventListener('submit', function (event) {
 
 	event.preventDefault();
+  
+  if(document.getElementById('training_type').value == "0"){
+    notification('warning', "Oops!", "Silahkan pilih tipe training.")
+  }else {
     display('submit-button', 'none')
     
     var serializeForm = function (form) {
@@ -165,27 +212,27 @@ document.getElementById('register-training').addEventListener('submit', function
         return obj;
     };
 
-	fetch(API_URL+"?target=register", {
-		method: 'POST',
-		body: JSON.stringify(serializeForm(event.target)),
-		headers: {
-			'Content-type': 'text/plain;charset=utf-8'
-		}
-	}).then(function (response) {
-		if (response.ok) {
-			return response.json();
-		}
-		return Promise.reject(response);
-	}).then(function (data) {
-		notification('success', "Sukses!", "Terimakasih. Data anda sudah berhasil kami terima. Tim kami akan segera menghubungi anda.")
-        document.getElementById("register-training").reset();
-        display('submit-button', 'block')
-        setTimeout(function(){
-            location.reload()
-        }, 3000);
-	}).catch(function (error) {
-		console.warn(error);
-		notification('danger', "Oops!", "Terjadi kesalahan, silahkan coba lagi.")
-        display('submit-button', 'block')
-	});
+    fetch(API_URL+"?target=custom-register", {
+      method: 'POST',
+      body: JSON.stringify(serializeForm(event.target)),
+      headers: {
+        'Content-type': 'text/plain;charset=utf-8'
+      }
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    }).then(function (data) {
+      notification('success', "Sukses!", "Terimakasih. Data anda sudah berhasil kami terima. Tim kami akan segera menghubungi anda.")
+          display('submit-button', 'block')
+          setTimeout(function(){
+              location.reload()
+          }, 3000);
+    }).catch(function (error) {
+      console.warn(error);
+      notification('error', "Oops!", "Terjadi kesalahan, silahkan coba lagi.")
+          display('submit-button', 'block')
+    });
+  }
 });
