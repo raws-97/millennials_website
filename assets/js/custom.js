@@ -151,6 +151,24 @@ function getTrainingDataByID(){
   }
 }
 
+function getTrainingDataByIDForFeedback(){
+  var url = new URL(window.location.href)
+  var id = url.searchParams.get("id");
+  if(!id){
+      return window.location.href = "/index.html";
+  }
+  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&id=${id}`)
+  if(data.data.length == 0){
+    window.location.href = "/index.html"
+  } else {
+  data.data.forEach(r=>{
+      setValueToElement('t-name', r.name)
+      document.getElementById('training-id').value = id
+  })
+}
+}
+
+
 function registerTraining(){
   document.getElementById('register-training').addEventListener('submit', function (event) {
 
@@ -194,6 +212,7 @@ function registerTraining(){
 }
 
 
+function registerTrainingNeeds(){
 document.getElementById('register-training-needs').addEventListener('submit', function (event) {
 
 	event.preventDefault();
@@ -236,3 +255,50 @@ document.getElementById('register-training-needs').addEventListener('submit', fu
     });
   }
 });
+}
+
+function setValueFeedbackForm(target, value){
+  document.getElementById(target).value = value
+}
+
+function feedbackForm(){
+  document.getElementById('feedback-form').addEventListener('submit', function (event) {
+
+    event.preventDefault();
+    display('submit-button', 'none')
+      
+    var serializeForm = function (form) {
+        var obj = {};
+        var formData = new FormData(form);
+        for (var key of formData.keys()) {
+            obj[key] = formData.get(key);
+        }
+        return obj;
+    };
+  
+    fetch(API_URL+"?target=feedback", {
+      method: 'POST',
+      body: JSON.stringify(serializeForm(event.target)),
+      headers: {
+        'Content-type': 'text/plain;charset=utf-8'
+      }
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    }).then(function (data) {
+      notification('success', "Sukses!", "Terimakasih atas penilaian anda.")
+          document.getElementById("feedback-form").reset();
+          display('submit-button', 'block')
+          setTimeout(function(){
+            window.location.href = "/index.html"
+          }, 3000);
+    }).catch(function (error) {
+      console.warn(error);
+      notification('error', "Oops!", "Terjadi kesalahan, silahkan coba lagi.")
+          display('submit-button', 'block')
+    });
+  });
+  
+}
