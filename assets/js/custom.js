@@ -288,7 +288,7 @@ function feedbackForm(){
       }
       return Promise.reject(response);
     }).then(function (data) {
-      notification('success', "Sukses!", "Terimakasih atas penilaian anda.")
+      notification('success', "Sukses!", "Terimakasih, atas penilaian anda.")
           document.getElementById("feedback-form").reset();
           display('submit-button', 'block')
           setTimeout(function(){
