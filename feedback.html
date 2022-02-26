@@ -198,17 +198,21 @@
                     </div>
 
     
-                    <div class="col-md-12">
+                    <div class="col-md-9">
                       <input type="email" name="email" id="email" class="form-control" placeholder="Email Anda" required>
                       <label style="font-size: 10px; color: red;" for="email">* Pastikan email sesuai, untuk pengiriman sertifikat dan dokumentasi pelatihan.</label>
                     </div>
 
-                    <div class="col-md-12">
-                      <input type="text" name="saran" class="form-control" placeholder="Saran dan Pesan" required>
+                    <div class="col-md-3 text-center">    
+                      <button style="width: 100%; background-color: #ac812d; color: white;" type="button" class="btn btn-warning" id="get-verification">Verifikasi</button>
                     </div>
 
                     <div class="col-md-12">
-                      <input type="text" name="new_training_needs" class="form-control" placeholder="Kebutuhan Training Selanjutnya" required>
+                      <input type="text" name="saran" class="form-control r-read-only" placeholder="Saran dan Pesan" required readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                      <input type="text" name="new_training_needs" class="form-control r-read-only" placeholder="Kebutuhan Training Selanjutnya" required readonly>
                     </div>
 
                     <div name="hidden-component" style="display: none;">
@@ -229,9 +233,11 @@
                         <input type="text" id="training-id" class="form-control" name="training_id" required readonly>
                       </div>
                     </div>
-        
-                    <div class="col-md-12 text-center">    
-                      <button type="submit" id="submit-button">Submit</button>
+                    
+                    <div class="col-md-12 text-center" >
+                      <center>
+                        <button type="submit" id="submit-button" style="display: none;">Submit</button>
+                      </center>
                     </div>
     
                   </div>
@@ -334,6 +340,7 @@
   <script>
     getTrainingDataByIDForFeedback()
     feedbackForm()
+    sendVerificationCode()
   </script>
 
 </body>

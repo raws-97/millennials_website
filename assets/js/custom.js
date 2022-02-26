@@ -1,4 +1,4 @@
-const API_TOKEN = "asd"
+const API_TOKEN = "QLwUYs79xU9yp4c2WTRWAa9xuMVWXgJq"
 const API_URL = "https://script.google.com/macros/s/AKfycbzyzIxQG0JsvZk3F6OI8eu9dbLQFTiYiygV-nBx1jlkOOnrga7dDSJi4zolWAGMU5Yo/exec"
 var footerYear = new Date().getFullYear()
 
@@ -302,8 +302,51 @@ function feedbackForm(){
   
 }
 
+function absenceForm(){
+  document.getElementById('absence-form').addEventListener('submit', function (event) {
+
+    event.preventDefault();
+    display('submit-button', 'none')
+      
+    var serializeForm = function (form) {
+        var obj = {};
+        var formData = new FormData(form);
+        for (var key of formData.keys()) {
+            obj[key] = formData.get(key);
+        }
+        return obj;
+    };
+  
+    fetch(API_URL+"?target=absensi", {
+      method: 'POST',
+      body: JSON.stringify(serializeForm(event.target)),
+      headers: {
+        'Content-type': 'text/plain;charset=utf-8'
+      }
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    }).then(function (data) {
+      notification('success', "Sukses!", "Terimakasih, atas penilaian anda.")
+          document.getElementById("absence-form").reset();
+          display('submit-button', 'block')
+          setTimeout(function(){
+            window.location.href = "/index.html"
+          }, 3000);
+    }).catch(function (error) {
+      console.warn(error);
+      notification('error', "Oops!", "Terjadi kesalahan, silahkan coba lagi.")
+          display('submit-button', 'block')
+    });
+  });
+  
+}
+
 function sendVerificationCode(){
   document.getElementById('get-verification').addEventListener('click', function (event) {
+    display('get-verification', 'none')
     var email = document.getElementById('email').value
     var payload = {
       "email": email
@@ -320,7 +363,33 @@ function sendVerificationCode(){
       }
       return Promise.reject(response);
     }).then(function (data) {
-      console.log(data)
+      if(data.status == 201){
+        setValueToElement('get-verification', 'Verified ✔')
+        document.getElementById("email").readOnly = true;
+        document.getElementById("get-verification").disabled = true;
+        document.getElementById("get-verification").style.background = "#6eff7a"
+        document.getElementById("get-verification").style.color = "black"
+        document.getElementById("get-verification").style.borderColor = "#6eff7a"
+
+        var r_readOnly = document.getElementsByClassName('r-read-only')
+
+        for(var i=0; i<r_readOnly.length; i++){
+          r_readOnly[i].readOnly = false;
+        }
+       
+        display('get-verification', 'block')
+        display('submit-button', "block")
+        notification('success', "Sukses!", "Email anda sudah terverifikasi.")
+        
+      } else if(data.status == 200){
+        setValueToElement('get-verification', 'Check Status')
+        display('get-verification', 'block')
+        display('submit-button', "block")
+        notification('success', "Sukses!", "Silahkan cek email Anda untuk verifikasi.")
+        
+      }
+
+      
     })
   })
 }
@@ -341,4 +410,19 @@ function emailVerificationPage(){
     window.location.href = "/index.html"
   }, 3000);
 
+}
+
+function getCompanyForAbsence(){
+  var url = new URL(window.location.href)
+  var id = url.searchParams.get("id");
+  if(!id){
+      return window.location.href = "/index.html";
+  }
+  var res = document.getElementById('company').innerHTML
+  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=get-company&id=${id}`)
+
+  data.data.forEach(r => {
+    res += `<option>${r.company}</option>`
+  })
+  setValueToElement('company', res)
 }

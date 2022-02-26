@@ -109,39 +109,43 @@
             <div class="row gy-4">
     
               <div class="col-lg-12">
-                <form class="php-email-form" id="feedback-form">
+                <form class="php-email-form" id="absence-form">
                   <div class="row gy-4">
 
-    
                     <div class="col-md-9">
                       <input type="email" name="email" id="email" class="form-control" placeholder="Email Anda" required>
                       <label style="font-size: 10px; color: red;" for="email">* Pastikan email sesuai, untuk pengiriman sertifikat dan dokumentasi pelatihan.</label>
                     </div>
 
                     <div class="col-md-3 text-center">    
-                      <button style="width: 100%; background-color: #ac812d; color: white;" type="button" class="btn btn-warning" id="get-verification">Kirim Verifikasi</button>
+                      <button style="width: 100%; background-color: #ac812d; color: white;" type="button" class="btn btn-warning" id="get-verification">Verifikasi</button>
                     </div>
                     
                     <div class="col-md-12">
-                      <input type="text" name="company" class="form-control" placeholder="Perusahaan Anda" required readonly>
+                      <select name="company" class="form-control" id="company">
+                        <option selected disabled>Perusahaan Anda</option>
+                      </select>
+                      <!-- <input type="text" name="company" class="form-control r-read-only" placeholder="Perusahaan Anda" required readonly> -->
                     </div>
 
                     <div class="col-md-6">
-                      <input type="text" name="full_name" class="form-control" placeholder="Nama Lengkap" required readonly>
+                      <input type="text" name="full_name" class="form-control r-read-only" placeholder="Nama Lengkap" required readonly>
                     </div>
 
                     <div class="col-md-6">
-                      <input type="text" class="form-control" name="phone" placeholder="Nomor Telepon" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" readonly/>
+                      <input type="text" class="form-control r-read-only" name="phone" placeholder="Nomor Telepon" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" readonly/>
                     </div>
 
-                    <div name="hidden-component" style="display: none;">
+                    <div name="hidden-component" style="display: block;">
                       <div class="col-md-12 ">
                         <input type="text" id="training-id" class="form-control" name="training_id" required readonly>
                       </div>
                     </div>
         
-                    <div class="col-md-12 text-center">    
-                      <button type="submit" id="submit-button">Submit</button>
+                    <div class="col-md-12 text-center">
+                      <center>
+                        <button style="display: none;" type="submit" id="submit-button">Submit</button>
+                      </center>
                     </div>
     
                   </div>
@@ -242,8 +246,10 @@
   <script src="assets/js/custom.js"></script>
 
   <script>
-    // getTrainingDataByIDForFeedback()
+    getTrainingDataByIDForFeedback()
+    getCompanyForAbsence()
     sendVerificationCode()
+    absenceForm()
   </script>
 
 </body>
