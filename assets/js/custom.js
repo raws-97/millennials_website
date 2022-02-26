@@ -17,7 +17,6 @@ function setValueToElement(id, val){
 
 function display(id, val){
     document.getElementById(id).style.display = val;
-
 }
 
 function currencyFormatter(input){
@@ -301,4 +300,45 @@ function feedbackForm(){
     });
   });
   
+}
+
+function sendVerificationCode(){
+  document.getElementById('get-verification').addEventListener('click', function (event) {
+    var email = document.getElementById('email').value
+    var payload = {
+      "email": email
+    }
+    fetch(API_URL+"?target=send-verif-email", {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-type': 'text/plain;charset=utf-8'
+      }
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    }).then(function (data) {
+      console.log(data)
+    })
+  })
+}
+
+function emailVerificationPage(){
+  var url = new URL(window.location.href)
+  var id = url.searchParams.get("hash");
+
+  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=verif-email&id=${id}`)
+
+  if(data.status == 200){
+    display('success', 'block')
+  } else {
+    display('failed', 'block')
+  }
+
+  setTimeout(function(){
+    window.location.href = "/index.html"
+  }, 3000);
+
 }
