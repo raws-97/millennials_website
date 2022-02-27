@@ -96,6 +96,33 @@ function getSliderImage(){
       });
 }
 
+function getAllTrainingData(){
+  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan`)
+  data.data.forEach(r=>{
+    var training_date = new Date(r.created_at)
+    if(training_date > new Date()){
+      var res = `<div class="col-lg-4 col-md-6 portfolio-item filter-${r.category}">
+              <div class="portfolio-wrap">
+                <img src="${r.media_1}" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>${r.name}</h4>
+                  <p>${r.category}</p>
+                  <div class="portfolio-links">
+                    <a href="training-class.html?id=${r.id}" title="Learn More"><i class="bi bi-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>`
+    
+    document.getElementById('data-classes').innerHTML += res;
+    } else {
+      var res = `<div class="swiper-slide"><a href="training-class.html?id=${r.id}"><img src="${r.media_1}" class="img-fluid" alt=""></a></div>`
+      document.getElementById('past-training').innerHTML += res;
+    }
+    
+  })
+}
+
 function getPriorityTrainingData(){
     var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&priority=true`)
     data.data.forEach(r=>{
@@ -133,6 +160,15 @@ function getTrainingDataByID(){
       window.location.href = "/index.html"
     } else {
     data.data.forEach(r=>{
+      if(new Date(r.created_at) > new Date()){
+        setValueToElement('t-status', 'Tersedia')
+        document.getElementById('t-status').classList.add("bg-success")
+      } else {
+        display('contact', 'none')
+        setValueToElement('t-status', 'Sudah Berjalan')
+        document.getElementById('t-status').classList.add("bg-warning")
+        document.getElementById('t-status').classList.add("text-dark")
+      }
         var res = `<div class="swiper-slide">
                         <img src="${r.media_1}" alt="">
                     </div>`

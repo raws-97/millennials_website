@@ -92,101 +92,59 @@
 
         <ol>
           <li><a href="index.html">Home</a></li>
-          <li>Detail Pelatihan</li>
+          <li>Pelatihan</li>
         </ol>
-        <h2>Detail Pelatihan : <span id="t-name-3"></span></h2>
 
       </div>
     </section><!-- End Breadcrumbs -->
-
-    <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center" id="image-slider">
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
-
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>Informasi Training</h3>
-              <ul>
-                <li><strong>Nama</strong>: <span id="t-name"></span></li>
-                <li><strong>Kategori</strong>: <span id="t-category"></span></li>
-                <li><strong>Investasi</strong>: <span id="t-price"></span> /Peserta</li>
-                <li><strong>Waktu Program </strong>: <span id="t-created"></span></li>
-                <li><p>Informasi lebih lanjut mengenai Program ini, Bapak/Ibu dapat Menghubungi Sdri. <b>Vaniar</b> di nomor <b>0895 6114 71306</b> / <a target="_blank" href="https://api.whatsapp.com/send/?phone=62895611471306&text&app_absent=0">Whatsapp</a>
-                atau Email kami di <a target="_blank" href="mailto:learning@millennialsinstitute.com">learning@millennialsinstitute.com</a>.</p></li>
-                <li><strong>Status </strong>: <span id="t-status" class="badge rounded-pill"></span></li>
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2 id="t-name-2"></h2>
-              <div id="t-description"></div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Portfolio Details Section -->
-
-        <!-- ======= Contact Section ======= -->
-        <section id="contact" class="contact">
+        <!-- ======= Portfolio Section ======= -->
+        <section id="training-class" class="portfolio">
 
           <div class="container" data-aos="fade-up">
     
             <header class="section-header">
-              <p>Registrasi</p>
+              <p>Pelatihan Tersedia</p>
             </header>
+            
     
-            <div class="row gy-4">
-    
-              <div class="col-lg-12">
-                <form class="php-email-form" id="register-training">
-                  <div class="row gy-4">
-    
-                    <div class="col-md-6">
-                      <input type="text" name="name" class="form-control" placeholder="Nama Anda" required>
-                    </div>
-    
-                    <div class="col-md-6 ">
-                      <input type="email" class="form-control" name="email" placeholder="Email Anda" required>
-                    </div>
-                    
-                    <div class="col-md-6 " style="display: none;">
-                      <input type="text" id="training-id" class="form-control" name="training_id" required>
-                    </div>
-
-                    <div class="col-md-6 ">
-                      <input type="text" id="training-name" class="form-control" name="training_name" required readonly>
-                    </div>
-    
-                    <div class="col-md-6">
-                      <input type="text" class="form-control" name="phone" placeholder="Nomor Telepon" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
-                    </div>
-    
-                    <div class="col-md-12 text-center">    
-                      <button type="submit" id="submit-button">Submit</button>
-                    </div>
-    
-                  </div>
-                </form>
-    
+            <div class="row" data-aos="fade-up" data-aos-delay="100">
+              <div class="col-lg-12 d-flex justify-content-center">
+                <ul id="portfolio-flters">
+                  <li data-filter="*" class="filter-active">All</li>
+                  <li data-filter=".filter-online">Online</li>
+                  <li data-filter=".filter-offline">Offline</li>
+                  <li data-filter=".filter-online-offline">Online & Offline</li>
+                </ul>
               </div>
+            </div>
+            
     
+            <div class="row gy-4 portfolio-container" id="data-classes" data-aos="fade-up" data-aos-delay="200">
+
             </div>
     
           </div>
     
-        </section><!-- End Contact Section -->
+        </section><!-- End Portfolio Section -->
+
+            <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients">
+
+      <header class="section-header">
+        <p>Pelatihan Berjalan</p>
+      </header>
+
+
+      <div class="container" data-aos="fade-up">
+        <div class="clients-slider swiper">
+          <div class="swiper-wrapper align-items-center" id="past-training" >
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+    </section><!-- End Clients Section -->
+
     
 
   </main><!-- End #main -->
@@ -261,6 +219,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="https://kit.fontawesome.com/70c1225d63.js" crossorigin="anonymous"></script>
   <script src="assets/vendor/purecounter/purecounter.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -274,8 +233,7 @@
   <script src="assets/js/custom.js"></script>
 
   <script>
-    getTrainingDataByID()
-    registerTraining()
+    getAllTrainingData()
   </script>
 
 </body>
