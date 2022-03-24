@@ -365,7 +365,7 @@ function absenceForm(){
       }
       return Promise.reject(response);
     }).then(function (data) {
-      notification('success', "Sukses!", "Terimakasih, atas penilaian anda.")
+      notification('success', "Sukses!", "Terimakasih, absensi berhasil.")
           document.getElementById("absence-form").reset();
           display('submit-button', 'block')
           setTimeout(function(){
