@@ -112,14 +112,14 @@
                 <form class="php-email-form" id="absence-form">
                   <div class="row gy-4">
 
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                       <input type="email" name="email" id="email" class="form-control" placeholder="Email Anda" required>
                       <label style="font-size: 10px; color: red;" for="email">* Pastikan email sesuai, untuk pengiriman sertifikat dan dokumentasi pelatihan.</label>
                     </div>
 
-                    <div class="col-md-3 text-center">    
+                    <!-- <div class="col-md-3 text-center">    
                       <button style="width: 100%; background-color: #ac812d; color: white;" type="button" class="btn btn-warning" id="get-verification">Verifikasi</button>
-                    </div>
+                    </div> -->
                     
                     <div class="col-md-12">
                       <select name="company" class="form-control" id="company">
@@ -129,11 +129,11 @@
                     </div>
 
                     <div class="col-md-6">
-                      <input type="text" name="full_name" class="form-control r-read-only" placeholder="Nama Lengkap" required readonly>
+                      <input type="text" name="full_name" class="form-control r-read-only" placeholder="Nama Lengkap" required>
                     </div>
 
                     <div class="col-md-6">
-                      <input type="text" class="form-control r-read-only" name="phone" placeholder="Nomor Telepon" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" readonly/>
+                      <input type="text" class="form-control r-read-only" name="phone" placeholder="Nomor Telepon" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
                     </div>
 
                     <div name="hidden-component" style="display: none;">
@@ -144,7 +144,7 @@
         
                     <div class="col-md-12 text-center">
                       <center>
-                        <button style="display: none;" type="submit" id="submit-button">Submit</button>
+                        <button style="display: block;" type="submit" id="submit-button">Submit</button>
                       </center>
                     </div>
     
