@@ -23,6 +23,8 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -122,8 +124,8 @@
                     </div> -->
                     
                     <div class="col-md-12">
-                      <select name="company" class="form-control" id="company">
-                        <option selected disabled>Perusahaan Anda</option>
+                      <select name="company" class="form-control" id="company" required>
+                        <option selected disabled value="">Perusahaan Anda</option>
                       </select>
                       <!-- <input type="text" name="company" class="form-control r-read-only" placeholder="Perusahaan Anda" required readonly> -->
                     </div>
@@ -241,11 +243,16 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="assets/js/main.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="assets/js/custom.js"></script>
 
   <script>
+    $(document).ready(function() {
+        $('#company').select2();
+    });
     getTrainingDataByIDForFeedback()
     getCompanyForAbsence()
     // sendVerificationCode()
