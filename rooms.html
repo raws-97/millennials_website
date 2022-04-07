@@ -86,65 +86,30 @@
 
   <main id="main">
 
-    <!-- ======= Breadcrumbs ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+          <header class="section-header">
+            <p><span id="t-name"></span></p>
+          </header>
 
-        <ol>
-          <li><a href="index.html">Home</a></li>
-          <li>Pelatihan</li>
-        </ol>
-
-      </div>
-    </section><!-- End Breadcrumbs -->
-        <!-- ======= Portfolio Section ======= -->
-        <section id="training-class" class="portfolio">
-
-          <div class="container" data-aos="fade-up">
-    
-            <header class="section-header">
-              <p>Pelatihan Tersedia</p>
-            </header>
-            
-    
-            <div class="row" data-aos="fade-up" data-aos-delay="100">
-              <div class="col-lg-12 d-flex justify-content-center">
-                <ul id="portfolio-flters">
-                  <li data-filter="*" class="filter-active">All</li>
-                  <li data-filter=".filter-online">Online</li>
-                  <li data-filter=".filter-offline">Offline</li>
-                  <li data-filter=".filter-online-offline">Online & Offline</li>
-                </ul>
-              </div>
+          <div id="success" style="display: block;">
+            <div class="container" data-aos="fade-up">
+              <center>
+                <img style="width:400px" src="assets/img/redirect.gif" alt=""> <br>
+              </center>
             </div>
-            
-    
-            <div class="row gy-4 portfolio-container" id="data-classes" data-aos="fade-up" data-aos-delay="200">
+          </div>
 
+          <div id="failed" style="display: none;">
+            <div class="container" data-aos="fade-up">
+              <center>
+               <h4>Opps.. This link has expired.</h4>
+              </center>
             </div>
-    
           </div>
+          
     
-        </section><!-- End Portfolio Section -->
-
-            <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients">
-
-      <header class="section-header">
-        <p>Pelatihan Berjalan</p>
-      </header>
-
-
-      <div class="container" data-aos="fade-up">
-        <div class="clients-slider swiper">
-          <div class="swiper-wrapper align-items-center" id="past-training" >
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-      </div>
-
-    </section><!-- End Clients Section -->
-
+        </section><!-- End Contact Section -->
     
 
   </main><!-- End #main -->
@@ -233,7 +198,7 @@
   <script src="assets/js/custom.js"></script>
 
   <script>
-    getAllTrainingData()
+    roomsRedirect()
   </script>
 
 </body>

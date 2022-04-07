@@ -448,6 +448,31 @@ function emailVerificationPage(){
 
 }
 
+
+function roomsRedirect(){
+  var url = new URL(window.location.href)
+  var id = url.searchParams.get("id");
+
+  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&id=${id}`)
+  if(data.data.length == 0){
+    window.location.href = "/index.html"
+  } else {
+  data.data.forEach(r=>{
+    setValueToElement('t-name', r.name)
+
+    if(new Date(r.created_at) > new Date()){
+      setTimeout(function(){
+        window.location.href = r.zoom_link
+      }, 1500);
+      
+    } else {
+      display('success', 'none')
+      display('failed', 'block')
+    }
+  })
+}
+}
+
 function getCompanyForAbsence(){
   var url = new URL(window.location.href)
   var id = url.searchParams.get("id");
