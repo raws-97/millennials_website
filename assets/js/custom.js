@@ -1,5 +1,6 @@
 const API_TOKEN = "QLwUYs79xU9yp4c2WTRWAa9xuMVWXgJq"
 const API_URL = "https://script.google.com/macros/s/AKfycbzyzIxQG0JsvZk3F6OI8eu9dbLQFTiYiygV-nBx1jlkOOnrga7dDSJi4zolWAGMU5Yo/exec"
+const API_URL_WIFI = "https://script.google.com/macros/s/AKfycbzNmf-kCkQSdHZUG5jCs0B1BQCU57X6DAG7r-UAGm-w58r7eeAaKOCoAk1RqcfakCWN/exec"
 var footerYear = new Date().getFullYear()
 
 document.getElementById('footer-year').innerHTML = footerYear
@@ -486,4 +487,49 @@ function getCompanyForAbsence(){
     res += `<option>${r.company}</option>`
   })
   setValueToElement('company', res)
+}
+
+
+function registerWifi(){
+  document.getElementById('register-wifi-form').addEventListener('submit', function(event){
+    event.preventDefault();
+    display('submit-button', 'none')
+      
+    var serializeForm = function (form) {
+        var obj = {};
+        var formData = new FormData(form);
+        for (var key of formData.keys()) {
+            obj[key] = formData.get(key);
+        }
+        return obj;
+    };
+
+    fetch(API_URL_WIFI+"?route=createPayment", {
+      method: 'POST',
+      body: JSON.stringify(serializeForm(event.target)),
+      headers: {
+        'Content-type': 'text/plain;charset=utf-8'
+      }
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    }).then(function (data) {
+      console.log(data)
+      notification('success', "Sukses!", "Terimakasih. Data anda sudah berhasil kami terima. Tim kami akan segera menghubungi anda.")
+          document.getElementById("register-wifi-form").reset();
+          display('submit-button', 'block')
+          // setTimeout(function(){
+          //     location.reload()
+          // }, 3000);
+    }).catch(function (error) {
+      console.warn(error);
+      notification('error', "Oops!", "Terjadi kesalahan, silahkan coba lagi.")
+          display('submit-button', 'block')
+    });
+
+
+
+  })
 }
