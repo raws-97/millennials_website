@@ -494,6 +494,7 @@ function registerWifi(){
   document.getElementById('register-wifi-form').addEventListener('submit', function(event){
     event.preventDefault();
     display('submit-button', 'none')
+    display('loading', 'block')
       
     var serializeForm = function (form) {
         var obj = {};
@@ -517,9 +518,10 @@ function registerWifi(){
       return Promise.reject(response);
     }).then(function (data) {
       console.log(data)
-      notification('success', "Sukses!", "Terimakasih. Data anda sudah berhasil kami terima. Tim kami akan segera menghubungi anda.")
+      notification('success', "Sukses!", "Terimakasih. Kami sudah mengirimkan pesan Whatsapp pada nomor yang tertera.")
           document.getElementById("register-wifi-form").reset();
           display('submit-button', 'block')
+          display('loading', 'none')
           // setTimeout(function(){
           //     location.reload()
           // }, 3000);
@@ -527,6 +529,7 @@ function registerWifi(){
       console.warn(error);
       notification('error', "Oops!", "Terjadi kesalahan, silahkan coba lagi.")
           display('submit-button', 'block')
+          display('loading', 'none')
     });
 
 
