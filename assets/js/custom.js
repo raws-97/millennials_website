@@ -12,6 +12,16 @@ function httpGet(theUrl){
     return JSON.parse(xmlHttp.responseText)
 }
 
+function proper(str) {
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+
+
 function setValueToElement(id, val){
     document.getElementById(id).innerHTML = val
 }
@@ -531,8 +541,37 @@ function registerWifi(){
           display('submit-button', 'block')
           display('loading', 'none')
     });
-
-
-
   })
+}
+
+function paymentMethodWifi(){
+  fetch(API_URL_WIFI+"?route=payment_methods").then(function (response) {
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(response);
+  }).then(function (data) {
+    document.getElementById('payment_method').addEventListener('change', function(event){
+      display('payment-avail', 'block')
+      const value = data.filter(function(item){
+        return item.payment_method == event.target.value;         
+      })[0]
+
+      var imageHTML = ''
+      value.payment.forEach(img =>{
+        imageHTML += `<div class="swiper-slide"><img src="assets/img/payment_methods/${img}.png" class="img-fluid" alt=""></div>`
+      })
+      
+      document.getElementById('payment_type').innerHTML = proper(value.payment_method.replace("-", " "))
+      document.getElementById('price').innerHTML = currencyFormatter(value.price)
+      document.getElementById('fee').innerHTML = currencyFormatter(value.fee)
+      document.getElementById('total').innerHTML = currencyFormatter(value.price + value.fee)
+      document.getElementById('payment_slider').innerHTML = imageHTML
+      
+      
+      
+    })
+  })
+
+  
 }

@@ -119,17 +119,56 @@
                     </div>
                     <div class="col-md-12">
                       <input type="text" name="mobile_number" id="phone" class="form-control" placeholder="Nomor Whatsapp" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"> 
-                      <label style="font-size: 10px; color: red;" for="phone">* Pastikan email sesuai, untuk pengiriman invoice dan notifikasi.</label>
+                      <label style="font-size: 10px; color: red;" for="phone">* Pastikan nomor telepon sesuai, untuk pengiriman invoice dan notifikasi.</label>
                     </div>
-
-                    <!-- <div class="col-md-3 text-center">    
-                      <button style="width: 100%; background-color: #ac812d; color: white;" type="button" class="btn btn-warning" id="get-verification">Verifikasi</button>
-                    </div> -->
 
                     <div class="col-md-12">
                       <input type="text" name="name" class="form-control r-read-only" placeholder="Nama" required>
                     </div>
 
+                    <div class="col-md-12">
+                      <select name="payment_method" class="form-control" id="payment_method" required>
+                        <option selected disabled value="" hidden>Metode Pembayaran</option>
+                        <option value="bank-transfer">Bank Transfer</option>
+                        <option value="e-wallet">E-Wallet</option>
+                        <option value="credit-card">Credit Card</option>
+                      </select>
+                      <!-- <input type="text" name="company" class="form-control r-read-only" placeholder="Perusahaan Anda" required readonly> -->
+                    </div>
+
+                    <div class="container" data-aos="fade-up" id="payment-avail" style="display: none;">
+                      <center>
+                        <header class="section-header">
+                          <p><span id="payment_type"></span> Available</p>
+                        </header>
+                      <div class="clients-slider swiper">
+                        <div class="swiper-wrapper align-items-center" id="payment_slider">
+                        </div>
+                      </div>
+                    </center>
+
+                      <div style="margin-top: 20px;">
+                        <table>
+                          <tr>
+                            <td>Harga Paket</td>
+                            <td>: &nbsp;</td>
+                            <td id="price"></td>
+                          </tr>
+                          <tr>
+                            <td>Fee</td>
+                            <td>: &nbsp;</td>
+                            <td id="fee"></td>
+                          </tr>
+                          <tr style="color: #ac812d; font-weight: bold;">
+                            <td>Total</td>
+                            <td>: &nbsp;</td>
+                            <td id="total"></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+                    
                     
                     <div class="col-md-12 text-center" >
                       <center>
@@ -239,6 +278,7 @@
   <script src="assets/js/custom.js"></script>
 
   <script>
+    paymentMethodWifi()
     registerWifi()
   </script>
 
