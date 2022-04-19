@@ -146,8 +146,9 @@ function getPriorityTrainingData(){
       var res = `<div class="col-lg-4 col-md-6 portfolio-item filter-${r.category}">
                 <div class="portfolio-wrap">
                   <img src="${r.media_1}" class="img-fluid" alt="">
-                  <div class="portfolio-info">
+                  <div class="portfolio-info" style="cursor: pointer;" onclick="window.location='training-class.html?id=${r.id}';">
                     <h4>${r.name}</h4>
+                    <p>${dateFormatter(r.created_at)}</p>
                     <p>${r.category}</p>
                     <div class="portfolio-links">
                       <a href="training-class.html?id=${r.id}" title="Learn More"><i class="bi bi-link"></i></a>
