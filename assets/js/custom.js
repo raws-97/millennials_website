@@ -39,6 +39,12 @@ function currencyFormatter(input){
     return formatter
  }
 
+ Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
+
  function dateFormatter(input){
     const newDate = new Date(input)
     const listOfMonth = ["Januari","Februari","Maret","April","May","Juni","Juli","Agustus","September","Oktober","November","Desember"];
@@ -171,7 +177,8 @@ function getTrainingDataByID(){
       window.location.href = "/index.html"
     } else {
     data.data.forEach(r=>{
-      if(new Date(r.created_at) > new Date()){
+
+      if(new Date(r.created_at) > new Date().addDays(-1)){
         setValueToElement('t-status', 'Tersedia')
         document.getElementById('t-status').classList.add("bg-success")
       } else {
@@ -471,7 +478,7 @@ function roomsRedirect(){
   data.data.forEach(r=>{
     setValueToElement('t-name', r.name)
 
-    if(new Date(r.created_at) > new Date()){
+    if(new Date(r.created_at) > new Date().addDays(-1)){
       setTimeout(function(){
         window.location.href = r.zoom_link
       }, 1500);
