@@ -183,10 +183,17 @@ function getTrainingDataByID(){
         setValueToElement('t-status', 'Tersedia')
         document.getElementById('t-status').classList.add("bg-success")
       } else {
+        var content = `<div class="col-lg-12 d-flex justify-content-center">
+                <a target="_top" href="/documentation.html?id=${id}" style="background-color: #ac812d; color: white; margin-top: 20px;" class="btn">Dokumentasi Pelatihan<i class="fa-solid fa-arrow-right"></i></a>
+              </div> <br>`
+
         display('contact', 'none')
         setValueToElement('t-status', 'Sudah Berjalan')
         document.getElementById('t-status').classList.add("bg-warning")
         document.getElementById('t-status').classList.add("text-dark")
+        setValueToElement('documentation', content)
+
+
       }
         var res = `<div class="swiper-slide">
                         <img src="${r.media_1}" alt="">
@@ -589,6 +596,7 @@ function authDocumentation(){
 
     event.preventDefault();
     display('submit-button', 'none')
+    display('loading', 'block')
       
     var serializeForm = function (form) {
         var obj = {};
@@ -613,7 +621,7 @@ function authDocumentation(){
     }).then(function (data) {
       if(data.status == 200){
         var content = `<div class="col-lg-12 d-flex justify-content-center">
-                <a target="_blank" href="${data.url_documentation}" style="background-color: #ac812d; color: white; margin-top: 20px;" class="btn">Dokumentasi Pelatihan<i class="fa-solid fa-arrow-right"></i></a>
+                <a target="_blank" href="${data.url_documentation}" style="background-color: #ac812d; color: white; margin-top: 20px;" class="btn">Dokumentasi Pelatihan Lain<i class="fa-solid fa-arrow-right"></i></a>
               </div> <br>`
 
         data.link.forEach(r => {
@@ -638,11 +646,13 @@ function authDocumentation(){
       }else{
         notification('error', "Oops!", "Oopss.. Password salah! Silahkan coba lagi.")
         display('submit-button', 'block')
+        display('loading', 'none')
       }
     }).catch(function (error) {
       console.warn(error);
       notification('error', "Oops!", "Oops terjadi kesalahan. Silahkan coba lagi.")
       display('submit-button', 'block')
+      display('loading', 'none')
     });
   });
   
