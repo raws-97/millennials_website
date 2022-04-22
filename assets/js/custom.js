@@ -583,3 +583,88 @@ function paymentMethodWifi(){
 
   
 }
+
+function authDocumentation(){
+  document.getElementById('auth').addEventListener('submit', function (event) {
+
+    event.preventDefault();
+    display('submit-button', 'none')
+      
+    var serializeForm = function (form) {
+        var obj = {};
+        var formData = new FormData(form);
+        for (var key of formData.keys()) {
+            obj[key] = formData.get(key);
+        }
+        return obj;
+    };
+  
+    fetch(API_URL+"?target=auth-documentation", {
+      method: 'POST',
+      body: JSON.stringify(serializeForm(event.target)),
+      headers: {
+        'Content-type': 'text/plain;charset=utf-8'
+      }
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response);
+    }).then(function (data) {
+      if(data.status == 200){
+        var content = `<div class="col-lg-12 d-flex justify-content-center">
+                <a target="_blank" href="${data.url_documentation}" style="background-color: #ac812d; color: white; margin-top: 20px;" class="btn">Dokumentasi Pelatihan<i class="fa-solid fa-arrow-right"></i></a>
+              </div> <br>`
+
+        data.link.forEach(r => {
+          content += `<div class="row gy-4">
+                        <center>
+                        <div class="col-lg-8">
+                          <iframe width="100%" height="600px" 
+                          src="https://youtube.com/embed/${r}?modestbranding=1&controls=1&amp;" 
+                          frameborder="0" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </iframe>
+                        </div> 
+                      </center>
+                      </div>
+                      <br>`
+        })
+
+        setValueToElement('content', content)
+        display('authSection', 'none')
+        display('portfolio-details', 'block')
+        
+      }else{
+        notification('error', "Oops!", "Oopss.. Password salah! Silahkan coba lagi.")
+        display('submit-button', 'block')
+      }
+    }).catch(function (error) {
+      console.warn(error);
+      notification('error', "Oops!", "Oops terjadi kesalahan. Silahkan coba lagi.")
+      display('submit-button', 'block')
+    });
+  });
+  
+}
+
+function getTrainingDataByIDDocumentation(){
+  var url = new URL(window.location.href)
+  var id = url.searchParams.get("id");
+  if(!id){
+      return window.location.href = "/index.html";
+  }
+  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&id=${id}`)
+  if(data.data.length == 0){
+    window.location.href = "/index.html"
+  } else {
+  data.data.forEach(r=>{
+      setValueToElement('t-name', r.name)
+      setValueToElement('t-name-3', r.name)
+      setValueToElement('t-category', r.category)
+      setValueToElement('t-price', currencyFormatter(r.price))
+      setValueToElement('t-created', dateFormatter(r.created_at))
+      document.getElementById('training-id').value = id
+  })
+}
+}
