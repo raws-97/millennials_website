@@ -115,6 +115,14 @@ function getSliderImage(){
 
 function getAllTrainingData(){
   var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan`)
+
+  function custom_sort(a, b) {
+    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+  }
+
+  data.data.sort(custom_sort);
+  data.data.reverse()
+
   data.data.forEach(r=>{
     var training_date = new Date(r.created_at)
     if(training_date > new Date()){
