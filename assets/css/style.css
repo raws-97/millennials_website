@@ -2129,3 +2129,7 @@ label.star:before{
   content:'\f006';
   font-family: FontAwesome;
 }
+
+#t-description p{
+  text-align: justify;
+}
