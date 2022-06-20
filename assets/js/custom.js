@@ -150,6 +150,14 @@ function getAllTrainingData(){
 
 function getPriorityTrainingData(){
     var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&priority=true`)
+    
+    function custom_sort(a, b) {
+      return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+    }
+  
+    data.data.sort(custom_sort);
+    data.data.reverse()
+
     data.data.forEach(r=>{
       var res = `<div class="col-lg-4 col-md-6 portfolio-item filter-${r.category}">
                 <div class="portfolio-wrap">
