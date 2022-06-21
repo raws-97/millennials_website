@@ -222,6 +222,7 @@ function getTrainingDataByID(){
         setValueToElement('t-price', currencyFormatter(r.price))
         setValueToElement('t-created', dateFormatter(r.created_at))
         setValueToElement('t-description', r.description)
+        setValueToElement('contact-number', r.contact_number)
         document.getElementById('training-id').value = id
         document.getElementById('training-name').value = r.name
     })
