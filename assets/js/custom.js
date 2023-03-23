@@ -411,8 +411,16 @@ function absenceForm(){
       notification('success', "Sukses!", "Terimakasih, absensi berhasil.")
           document.getElementById("absence-form").reset();
           display('submit-button', 'block')
+
+          var url = new URL(window.location.href)
+          var link = url.searchParams.get("url");
           setTimeout(function(){
-            window.location.href = "/index.html"
+            if(link != null){
+              window.location.href = link
+            } else {
+              window.location.href = "/index.html"
+            }
+            
           }, 3000);
     }).catch(function (error) {
       console.warn(error);
