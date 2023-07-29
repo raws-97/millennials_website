@@ -124,11 +124,15 @@ function getAllTrainingData(){
   data.data.reverse()
 
   data.data.forEach(r=>{
+    var imgSrc = r.media_1
+    if(r.media_2 != ""){
+      imgSrc = r.media_2
+    }
     var training_date = new Date(r.created_at)
     if(training_date > new Date()){
       var res = `<div class="col-lg-4 col-md-6 portfolio-item filter-${r.category}">
               <div class="portfolio-wrap">
-                <img src="${r.media_1}" class="img-fluid" alt="">
+                <img src="${imgSrc}" class="img-fluid" alt="">
                 <div class="portfolio-info">
                   <h4>${r.name}</h4>
                   <p>${r.category}</p>
@@ -141,7 +145,7 @@ function getAllTrainingData(){
     
     document.getElementById('data-classes').innerHTML += res;
     } else {
-      var res = `<div class="swiper-slide"><a href="training-class.html?id=${r.id}"><img src="${r.media_1}" class="img-fluid" alt=""></a></div>`
+      var res = `<div class="swiper-slide"><a href="training-class.html?id=${r.id}"><img src="${imgSrc}" class="img-fluid" alt=""></a></div>`
       document.getElementById('past-training').innerHTML += res;
     }
     
@@ -159,9 +163,13 @@ function getPriorityTrainingData(){
     data.data.reverse()
 
     data.data.forEach(r=>{
+      var imgSrc = r.media_1
+      if(r.media_2 != ""){
+        imgSrc = r.media_2
+      }
       var res = `<div class="col-lg-4 col-md-6 portfolio-item filter-${r.category}">
                 <div class="portfolio-wrap">
-                  <img src="${r.media_1}" class="img-fluid" alt="">
+                  <img src="${imgSrc}" class="img-fluid" alt="">
                   <div class="portfolio-info" style="cursor: pointer;" onclick="window.location='training-class.html?id=${r.id}';">
                     <h4>${r.name}</h4>
                     <p>${dateFormatter(r.created_at)}</p>
@@ -211,8 +219,12 @@ function getTrainingDataByID(){
 
 
       }
+        var imgSrc = r.media_1
+        if(r.media_2 != ""){
+          imgSrc = r.media_2
+        }
         var res = `<div class="swiper-slide">
-                        <img src="${r.media_1}" alt="">
+                        <img src="${imgSrc}" alt="">
                     </div>`
         document.getElementById('image-slider').innerHTML += res;
         setValueToElement('t-name', r.name)
