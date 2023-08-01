@@ -713,5 +713,23 @@ function getTrainingDataByIDDocumentation(){
       setValueToElement('t-created', dateFormatter(r.created_at))
       document.getElementById('training-id').value = id
   })
+  }
 }
+
+
+function getCertificateById(){
+  var url = new URL(window.location.href)
+  var id = url.searchParams.get("id");
+  if(!id){
+      return window.location.href = "/index.html";
+  }
+  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=get-certificate&id=${id}`)
+
+  if(data.status != 200){
+    return window.location.href = "/index.html";
+  }
+
+  document.getElementById('certificate-name').innerHTML = data.name
+  document.getElementById('certificate-download').href = data.src
+  document.getElementById('certificate-download').setAttribute('download', data.name)
 }
