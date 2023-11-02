@@ -733,3 +733,19 @@ function getCertificateById(){
   document.getElementById('certificate-download').href = data.src
   document.getElementById('certificate-download').setAttribute('download', data.name)
 }
+
+function getPartnersLogo(){
+  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=partners`)
+  data.data.forEach(r=>{
+    var res = `<div class="swiper-slide"><img src="${r.image}" class="img-fluid" alt="${r.id}"></div>`
+    
+    document.getElementById('main-partners').innerHTML += res;
+  })
+
+  var swiper = new Swiper(".main-partners", {
+      spaceBetween: 40,
+      centeredSlides: false,
+      slidesPerView: 'auto',
+
+    });
+}
