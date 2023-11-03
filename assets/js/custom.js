@@ -10,6 +10,16 @@ function httpGet(theUrl){
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
     xmlHttp.send( null );
     return JSON.parse(xmlHttp.responseText)
+} 
+
+function httpGetPromises(url) {
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    });
 }
 
 function proper(str) {
@@ -87,15 +97,15 @@ function indexSlider(){
 
 }
 
-function getSliderImage(){
-    var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=slider_image`)
-    data.data.forEach(r=>{
-      var res = `<div class="swiper-slide"><img src="${r.image}" alt="${r.id}"></div>`
-      
-      document.getElementById('main-slider').innerHTML += res;
-    })
+function getSliderImage() {
+  return httpGetPromises(`${API_URL}?token=${API_TOKEN}&db=slider_image`)
+    .then((data) => {
+      const imageElements = data.data.map((r) => (
+        `<div class="swiper-slide"><img src="${r.image}" alt="${r.id}"></div>`
+      ));
+      document.getElementById('main-slider').innerHTML = imageElements.join('');
 
-    var swiper = new Swiper(".main-slider", {
+      new Swiper(".main-slider", {
         spaceBetween: 30,
         centeredSlides: true,
         autoplay: {
@@ -109,9 +119,13 @@ function getSliderImage(){
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
-        },
+        }
       });
+
+      showContent();
+    });
 }
+
 
 function getAllTrainingData(){
   var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan`)
@@ -152,38 +166,60 @@ function getAllTrainingData(){
   })
 }
 
-function getPriorityTrainingData(){
-    var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&priority=true`)
-    
-    function custom_sort(a, b) {
-      return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-    }
-  
-    data.data.sort(custom_sort);
-    data.data.reverse()
-
-    data.data.forEach(r=>{
-      var imgSrc = r.media_1
-      if(r.media_2 != ""){
-        imgSrc = r.media_2
-      }
-      var res = `<div class="col-lg-4 col-md-6 portfolio-item filter-${r.category}">
-                <div class="portfolio-wrap">
-                  <img src="${imgSrc}" class="img-fluid" alt="">
-                  <div class="portfolio-info" style="cursor: pointer;" onclick="window.location='training-class.html?id=${r.id}';">
-                    <h4>${r.name}</h4>
-                    <p>${dateFormatter(r.created_at)}</p>
-                    <p>${r.category}</p>
-                    <div class="portfolio-links">
-                      <a href="training-class.html?id=${r.id}" title="Learn More"><i class="bi bi-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>`
-      
-      document.getElementById('data-classes').innerHTML += res;
-    })
+// Function to remove the skeleton loader and display the content
+function showContent() {
+  const skeletonLoader = document.querySelector('.skeleton-loader');
+  if (skeletonLoader) {
+    skeletonLoader.style.display = 'none';
+  }
 }
+
+// Modify your getPriorityTrainingData function
+function getPriorityTrainingData() {
+  const dataClassesElement = document.getElementById('training-class');
+  
+  const html = `<header class="section-header">
+                  <p>Pelatihan Prioritas</p>
+                </header>
+
+                <div class="col-lg-12 d-flex justify-content-center">
+                  <a href="/all-training.html" style="background-color: #ac812d; color: white; margin-bottom: 20px;" class="btn">Lihat Semua Pelatihan <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                  <div id="data-classes" class="row gy-4 portfolio-container">
+                    REPLACE_ME
+                </div>`
+
+  return httpGetPromises(`${API_URL}?token=${API_TOKEN}&db=pelatihan&priority=true`)
+    .then((data) => {
+      let combined = ''
+      data.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));  
+      data.data.forEach((r) => {
+        const imgSrc = r.media_2 || r.media_1;
+        const res = `
+          <div class="col-lg-4 col-md-6 portfolio-item filter-${r.category}">
+            <div class="portfolio-wrap">
+              <img src="${imgSrc}" class="img-fluid" alt="">
+              <div class="portfolio-info" style="cursor: pointer;" onclick="window.location='training-class.html?id=${r.id}';">
+                <h4>${r.name}</h4>
+                <p>${dateFormatter(r.created_at)}</p>
+                <p>${r.category}</p>
+                <div class="portfolio-links">
+                  <a href="training-class.html?id=${r.id}" title="Learn More"><i class="bi bi-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>`;
+
+          combined += res
+      });
+      const newHtml = html.replace('REPLACE_ME', combined)
+      dataClassesElement.innerHTML = newHtml
+      showContent(); // Call this function to remove the skeleton loader
+
+    });
+}
+
 
 function getParamsFromURL(url, params){
     var url = new URL(url)
@@ -734,18 +770,24 @@ function getCertificateById(){
   document.getElementById('certificate-download').setAttribute('download', data.name)
 }
 
-function getPartnersLogo(){
-  var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=partners`)
-  data.data.forEach(r=>{
-    var res = `<div class="swiper-slide"><img src="${r.image}" class="img-fluid" alt="${r.id}"></div>`
-    
-    document.getElementById('main-partners').innerHTML += res;
-  })
+function getPartnersLogo() {
+  return new Promise((resolve, reject) => {
+    httpGetPromises(`${API_URL}?token=${API_TOKEN}&db=partners`)
+      .then((data) => {
+        const imageElements = data.data.map((r) => (
+          `<div class="swiper-slide"><img src="${r.image}" class="img-fluid" alt="${r.id}"></div>`
+        ));
+        document.getElementById('main-partners').innerHTML = imageElements.join('');
 
-  var swiper = new Swiper(".main-partners", {
-      spaceBetween: 40,
-      centeredSlides: false,
-      slidesPerView: 'auto',
-
-    });
+        var swiper = new Swiper(".main-partners", {
+          spaceBetween: 40,
+          centeredSlides: false,
+          slidesPerView: 'auto',
+        });
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 }
