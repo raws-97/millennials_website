@@ -227,55 +227,56 @@ function getParamsFromURL(url, params){
     return result
 }
 
-function getTrainingDataByID(){
-    var url = new URL(window.location.href)
-    var id = url.searchParams.get("id");
-    if(!id){
-        return window.location.href = "/index.html";
-    }
-    var data = httpGet(`${API_URL}?token=${API_TOKEN}&db=pelatihan&id=${id}`)
-    if(data.data.length == 0){
-      window.location.href = "/index.html"
-    } else {
-    data.data.forEach(r=>{
+function getTrainingDataByID() {
+  const url = new URL(window.location.href);
+  const id = url.searchParams.get("id");
 
-      if(new Date(r.created_at) > new Date().addDays(-1)){
-        setValueToElement('t-status', 'Tersedia')
-        document.getElementById('t-status').classList.add("bg-success")
-      } else {
-        var content = `<div class="col-lg-12 d-flex justify-content-center">
-                <a target="_top" href="/documentation.html?id=${id}" style="background-color: #ac812d; color: white; margin-top: 20px;" class="btn">Dokumentasi Pelatihan<i class="fa-solid fa-arrow-right"></i></a>
-              </div> <br>`
-
-        display('contact', 'none')
-        setValueToElement('t-status', 'Sudah Berjalan')
-        document.getElementById('t-status').classList.add("bg-warning")
-        document.getElementById('t-status').classList.add("text-dark")
-        setValueToElement('documentation', content)
-
-
-      }
-        var imgSrc = r.media_1
-        if(r.media_2 != ""){
-          imgSrc = r.media_2
-        }
-        var res = `<div class="swiper-slide">
-                        <img src="${imgSrc}" alt="">
-                    </div>`
-        document.getElementById('image-slider').innerHTML += res;
-        setValueToElement('t-name', r.name)
-        setValueToElement('t-name-2', r.name)
-        setValueToElement('t-name-3', r.name)
-        setValueToElement('t-category', r.category)
-        setValueToElement('t-price', currencyFormatter(r.price))
-        setValueToElement('t-created', dateFormatter(r.created_at))
-        setValueToElement('t-description', r.description)
-        setValueToElement('contact-number', r.contact_number)
-        document.getElementById('training-id').value = id
-        document.getElementById('training-name').value = r.name
-    })
+  if (!id) {
+    return Promise.reject("ID not found");
   }
+
+  return httpGetPromises(`${API_URL}?token=${API_TOKEN}&db=pelatihan&id=${id}`)
+    .then((data) => {
+      if (data.data.length === 0) {
+        window.location.href = "/index.html";
+        return;
+      }
+
+      const r = data.data[0]; // Assuming you only need the first item in the data array
+
+      setValueToElement('t-status', new Date(r.created_at) > new Date().addDays(-1) ? 'Tersedia' : 'Sudah Berjalan');
+      document.getElementById('t-status').classList.add(new Date(r.created_at) > new Date().addDays(-1) ? 'bg-success' : 'bg-warning text-dark');
+
+      const content = new Date(r.created_at) <= new Date().addDays(-1) ?
+        `<div class="col-lg-12 d-flex justify-content-center">
+            <a target="_top" href="/documentation.html?id=${id}" style="background-color: #ac812d; color: white; margin-top: 20px;" class="btn">Dokumentasi Pelatihan<i class="fa-solid fa-arrow-right"></i></a>
+          </div> <br>` :
+        '';
+
+      display('contact', new Date(r.created_at) <= new Date().addDays(-1) ? 'none' : 'block');
+      setValueToElement('documentation', content);
+
+      const imgSrc = r.media_2 || r.media_1;
+      const res = `<div class="swiper-slide">
+                    <img src="${imgSrc}" alt="">
+                  </div>`;
+      document.getElementById('image-slider').innerHTML = res;
+
+      setValueToElement('t-name', r.name)
+      setValueToElement('t-name-2', r.name)
+      setValueToElement('t-name-3', r.name)
+      setValueToElement('t-category', r.category.toUpperCase())
+      setValueToElement('t-price', currencyFormatter(r.price))
+      setValueToElement('t-created', dateFormatter(r.created_at))
+      setValueToElement('contact-number', r.contact_number)
+      setValueToElement('t-description', r.description)
+
+      document.getElementById('training-id').value = id;
+      document.getElementById('training-name').value = r.name;
+    });
 }
+
+
 
 function getTrainingDataByIDForFeedback(){
   var url = new URL(window.location.href)
