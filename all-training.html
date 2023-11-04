@@ -53,23 +53,6 @@
           <li><a class="nav-link scrollto" href="index.html#training-class">Pelatihan</a></li>
           <li><a class="nav-link scrollto" href="index.html#services">Servis</a></li>
           <li><a class="nav-link scrollto" href="index.html#about">Tentang Kami</a></li>
-          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -91,29 +74,30 @@
       </div>
     </section><!-- End Breadcrumbs -->
         <!-- ======= Portfolio Section ======= -->
-        <section id="training-class" class="portfolio">
+        <section class="portfolio">
 
-          <div class="container" data-aos="fade-up">
+          <div class="container" data-aos="fade-up" id="training-class">
     
             <header class="section-header">
               <p>Pelatihan Tersedia</p>
-            </header>
-            
-    
-            <div class="row" data-aos="fade-up" data-aos-delay="100">
-              <div class="col-lg-12 d-flex justify-content-center">
-                <ul id="portfolio-flters">
-                  <li data-filter="*" class="filter-active">All</li>
-                  <li data-filter=".filter-online">Online</li>
-                  <li data-filter=".filter-offline">Offline</li>
-                  <li data-filter=".filter-online-offline">Online & Offline</li>
-                </ul>
-              </div>
-            </div>
-            
+            </header>            
     
             <div class="row gy-4 portfolio-container" id="data-classes" data-aos="fade-up" data-aos-delay="200">
-
+              <div class="col-lg-4 col-md-6 portfolio-item filter-online">
+                <div class="portfolio-wrap skeleton-loader">
+                  <div class="skeleton-image"></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 portfolio-item filter-online">
+                <div class="portfolio-wrap skeleton-loader">
+                  <div class="skeleton-image"></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 portfolio-item filter-online">
+                <div class="portfolio-wrap skeleton-loader">
+                  <div class="skeleton-image"></div>
+                </div>
+              </div>
             </div>
     
           </div>
@@ -121,7 +105,7 @@
         </section><!-- End Portfolio Section -->
 
             <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients">
+    <section class="past-training">
 
       <header class="section-header">
         <p>Pelatihan Berjalan</p>
@@ -223,7 +207,9 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/utilities.js"></script>
+  <script src="assets/js/training/get-all-training.js"></script>
 
   <script>
     getAllTrainingData()

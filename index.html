@@ -301,8 +301,13 @@
                           <textarea class="form-control" placeholder="Kebutuhan Training.." name="training_needs" required></textarea>
                         </div>
         
-                        <div class="col-md-12 text-center">    
-                          <button type="submit" id="submit-button">Submit</button>
+                        <div class="col-md-12 text-center">
+                          <center>
+                            <button type="submit" id="submit-button">Submit</button>
+                            <div class="spinner-border" id="loading" role="status" style="display: none;">
+                              <span class="sr-only"></span>
+                            </div>
+                          </center>
                         </div>
         
                       </div>
@@ -395,22 +400,25 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/utilities.js"></script>
+  <script src="assets/js/training/get-priority-training.js"></script>
+  <script src="assets/js/slider/get-main-slider.js"></script>
+  <script src="assets/js/slider/get-partner-logos.js"></script>
+  <script src="assets/js/form/custom-register.js"></script>
   <script>
-
-      Promise.all([getPriorityTrainingData(), getSliderImage(), getPartnersLogo()])
+    registerTrainingNeeds()
+      Promise.all([getSliderImage(), getPartnersLogos(), getPriorityTrainingData()])
       .then(() => {
         console.log("Data loaded successfully");
       })
       .catch((error) => {
         console.error("Error loading data:", error);
       });
-      registerTrainingNeeds()
 
   </script>
 

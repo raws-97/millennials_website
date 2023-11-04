@@ -55,23 +55,6 @@
           <li><a class="nav-link scrollto" href="index.html#training-class">Pelatihan</a></li>
           <li><a class="nav-link scrollto" href="index.html#services">Servis</a></li>
           <li><a class="nav-link scrollto" href="index.html#about">Tentang Kami</a></li>
-          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -104,18 +87,13 @@
             <div class="row gy-4">
     
               <div class="col-lg-12">
-                <form class="php-email-form" id="absence-form">
+                <form class="php-email-form" id="absence-form" >
                   <div class="row gy-4">
 
                     <div class="col-md-12">
                       <input type="email" name="email" id="email" class="form-control" placeholder="Email Anda" required>
                       <label style="font-size: 10px; color: red;" for="email">* Pastikan email sesuai, untuk pengiriman sertifikat dan dokumentasi pelatihan.</label>
-                    </div>
-
-                    <!-- <div class="col-md-3 text-center">    
-                      <button style="width: 100%; background-color: #ac812d; color: white;" type="button" class="btn btn-warning" id="get-verification">Verifikasi</button>
-                    </div> -->
-                    
+                    </div>                    
                     <div class="col-md-12">
                       <select name="company" class="form-control" id="company" required>
                         <option selected disabled value="">Perusahaan Anda</option>
@@ -139,9 +117,14 @@
         
                     <div class="col-md-12 text-center">
                       <center>
-                        <button style="display: block;" type="submit" id="submit-button">Submit</button>
+                        <button type="submit" id="submit-button" style="display: none;">Submit</button>
+                        <div class="spinner-border" id="loading" role="status" style="display: block;">
+                          <span class="sr-only"></span>
+                        </div>
                       </center>
                     </div>
+
+                    
     
                   </div>
                 </form>
@@ -240,15 +223,15 @@
   <script src="assets/js/main.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/utilities.js"></script>
+  <script src="assets/js/absence/get-training-data.js"></script>
+  <script src="assets/js/absence/get-partners.js"></script>
+  <script src="assets/js/absence/absence-form.js"></script>
 
   <script>
-    $(document).ready(function() {
-        $('#company').select2();
-    });
-    getTrainingDataByIDForFeedback()
-    getCompanyForAbsence()
-    // sendVerificationCode()
+    getTrainingDataByID()
+    getPartners()
     absenceForm()
   </script>
 

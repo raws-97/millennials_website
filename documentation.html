@@ -71,7 +71,8 @@
           <li><a href="index.html">Home</a></li>
           <li>Dokumentasi Pelatihan</li>
         </ol>
-        <h2>Dokumentasi Pelatihan : <span id="t-name-3"></span></h2>
+        
+        <h2>Dokumentasi Pelatihan : <span id="t-name-3"><div class="swiper-slide skeleton-loader"><div class="skeleton-image" style="height: 3px;"></div></div></span></h2>
 
       </div>
     </section><!-- End Breadcrumbs -->
@@ -90,7 +91,7 @@
             <form class="php-email-form" id="auth">
               <div class="row gy-4">
                 <div class="col-md-12">
-                  <input type="password" name="password" class="form-control" placeholder="Password" required>
+                  <input id="password" type="password" name="password" class="form-control" placeholder="Password" required disabled>
                 </div>
                 
                 <div class="col-md-12 " style="display: none;">
@@ -99,9 +100,9 @@
                 
                 <div class="col-md-12 text-center"> 
                   <center>
-                  <button type="submit" id="submit-button">Submit</button>
+                  <button type="submit" id="submit-button" disabled style="display: none;">Submit</button>
 
-                  <div class="spinner-border" id="loading" role="status" style="display: none;">
+                  <div class="spinner-border" id="loading" role="status" style="display: block;">
                     <span class="sr-only"></span>
                   </div>
                 </center>
@@ -130,7 +131,7 @@
               <ul>
                 <li><strong>Nama</strong>: <span id="t-name"></span></li>
                 <li><strong>Kategori</strong>: <span id="t-category"></span></li>
-                <li><strong>Investasi</strong>: <span id="t-price"></span> /Peserta</li>
+                <li><strong>Investasi</strong>: <span id="t-price"></span></li>
                 <li><strong>Waktu Program </strong>: <span id="t-created"></span></li>
                 <li><p>Informasi lebih lanjut mengenai Program ini, Bapak/Ibu dapat Menghubungi Sdri. <b>Vaniar</b> di nomor <b>0895 6114 71306</b> / <a target="_blank" href="https://api.whatsapp.com/send/?phone=62895611471306&text&app_absent=0">Whatsapp</a>
                 atau Email kami di <a target="_blank" href="mailto:learning@millennialsinstitute.com">learning@millennialsinstitute.com</a>.</p></li>
@@ -227,10 +228,13 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/utilities.js"></script>
+  <script src="assets/js/documentation/get-documentation.js"></script>
+  <script src="assets/js/documentation/auth-documentation.js"></script>
 
   <script>
-    getTrainingDataByIDDocumentation()
+    getTrainingDocumentation()
     authDocumentation()
   </script>
 
