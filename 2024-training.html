@@ -23,8 +23,7 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+  <link rel="stylesheet" href="cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -70,72 +69,40 @@
 
         <ol>
           <li><a href="index.html">Home</a></li>
-          <li>Absensi Kehadiran</li>
+          <li>Pelatihan</li>
         </ol>
 
       </div>
     </section><!-- End Breadcrumbs -->
-        <!-- ======= Contact Section ======= -->
-        <section id="contact" class="contact">
+        <!-- ======= Portfolio Section ======= -->
+        <section class="portfolio">
 
-          <div class="container" data-aos="fade-up">
+          <div class="container" id="training-class">
     
             <header class="section-header">
-              <p>Absensi Kehadiran Training <span id="t-name"></span></p>
-            </header>
+              <p>Pelatihan 2024</p>
+            </header>            
     
-            <div class="row gy-4">
-    
-              <div class="col-lg-12">
-                <form class="php-email-form" id="absence-form" >
-                  <div class="row gy-4">
-
-                    <div class="col-md-12">
-                      <input type="email" name="email" id="email" class="form-control" placeholder="Email Anda" required>
-                      <label style="font-size: 10px; color: red;" for="email">* Pastikan email sesuai, untuk pengiriman sertifikat dan dokumentasi pelatihan.</label>
-                    </div>                    
-                    <div class="col-md-12">
-                      <select name="company" class="form-control" id="company" required>
-                        <option selected disabled value="">Perusahaan Anda</option>
-                      </select>
-                      <!-- <input type="text" name="company" class="form-control r-read-only" placeholder="Perusahaan Anda" required readonly> -->
-                    </div>
-
-                    <div class="col-md-6">
-                      <input type="text" name="full_name" id="full_name" class="form-control r-read-only" placeholder="Nama Lengkap" required>
-                    </div>
-
-                    <div class="col-md-6">
-                      <input type="text" class="form-control r-read-only" name="phone" placeholder="Nomor Telepon" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
-                    </div>
-
-                    <div name="hidden-component" style="display: none;">
-                      <div class="col-md-12 ">
-                        <input type="text" id="training-id" class="form-control" name="training_id" required readonly>
-                      </div>
-                    </div>
+              <table id="myTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Row 1 Data 1</td>
+                        <td>Row 1 Data 2</td>
+                    </tr>
+                    <tr>
+                        <td>Row 2 Data 1</td>
+                        <td>Row 2 Data 2</td>
+                    </tr>
+                </tbody>
+            </table>
         
-                    <div class="col-md-12 text-center">
-                      <center>
-                        <button type="submit" id="submit-button" style="display: none;">Submit</button>
-                        <div class="spinner-border" id="loading" role="status" style="display: block;">
-                          <span class="sr-only"></span>
-                        </div>
-                      </center>
-                    </div>
-
-                    
-    
-                  </div>
-                </form>
-    
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section><!-- End Contact Section -->
+        </section><!-- End Portfolio Section -->
     
 
   </main><!-- End #main -->
@@ -217,22 +184,20 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="assets/js/main.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="assets/js/config.js"></script>
   <script src="assets/js/utilities.js"></script>
-  <script src="assets/js/absence/get-training-data.js"></script>
-  <script src="assets/js/absence/get-partners.js"></script>
-  <script src="assets/js/absence/absence-form.js"></script>
+  <script src="assets/js/training/get-all-training.js"></script>
+  
 
   <script>
-    getTrainingDataByID()
-    getPartners()
-    absenceForm()
+    let table = new DataTable('#myTable', {
+        // options
+    });
   </script>
 
 </body>

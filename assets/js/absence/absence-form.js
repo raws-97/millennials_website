@@ -43,17 +43,25 @@ function serializeFormData(formData) {
 
 function handleSuccess() {
     notification('success', "Sukses!", "Terimakasih, absensi berhasil.");
-    document.getElementById("absence-form").reset();
+    
     display('loading', 'none');
     display('submit-button', 'block');
 
     const url = new URL(window.location.href);
-    const link = url.searchParams.get("url");
+    const link = url.href.replace(url.origin, "").replace("/","").replace("absensi-kehadiran.html?id=", "").replace(url.searchParams.get("id") + "&", "").replace("url=", "")
+    const user_name = document.getElementById('full_name').value
+    const email = document.getElementById('email').value
+    const fixed_link = link.replace('REPLACE_NAME', user_name).replace("REPLACE_EMAIL", email)
+
+    console.log(fixed_link)
+    document.getElementById("absence-form").reset();
     setTimeout(() => {
         if (link != null) {
-            window.location.href = link;
+            window.location.href = fixed_link;
         }
     }, 3000);
+
+    
 }
 
 function handleFailure(error) {
