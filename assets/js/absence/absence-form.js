@@ -7,20 +7,32 @@ function absenceForm() {
         display('loading', 'block');
 
         try {
-            const formData = new FormData(absenceForm);
-            const data = await postAbsenceFormData(formData);
+            const email = document.getElementById('email').value
+            const fullName = document.getElementById('full_name').value
+            const phoneNumber = document.getElementById('phone_number').value
+            const companySelect = document.getElementById('company')
+            const company = companySelect.options[companySelect.selectedIndex].text
+            const urlTest = document.getElementById('company').value
 
-            handleSuccess(data);
+            const data = await postAbsenceFormData(email, fullName, phoneNumber, company);
+
+            handleSuccess(data, email, fullName, urlTest);
         } catch (error) {
             handleFailure(error);
         }
     });
 }
 
-async function postAbsenceFormData(formData) {
+async function postAbsenceFormData(email, fullName, phoneNumber, company) {
     const response = await fetch(API_URL + "?target=absensi", {
         method: 'POST',
-        body: JSON.stringify(serializeFormData(formData)),
+        body: JSON.stringify({
+            email: email,
+            full_name: fullName,
+            training_id: new URL(window.location.href).searchParams.get("id"),
+            phone: phoneNumber,
+            company: company
+        }),
         headers: {
             'Content-type': 'text/plain;charset=utf-8'
         }
@@ -33,35 +45,22 @@ async function postAbsenceFormData(formData) {
     return response.json();
 }
 
-function serializeFormData(formData) {
-    const obj = {};
-    for (const key of formData.keys()) {
-        obj[key] = formData.get(key);
-    }
-    return obj;
-}
-
-function handleSuccess() {
+function handleSuccess(data, email, fullName, urlTest) {
     notification('success', "Sukses!", "Terimakasih, absensi berhasil.");
     
     display('loading', 'none');
     display('submit-button', 'block');
 
-    const url = new URL(window.location.href);
-    const link = url.href.replace(url.origin, "").replace("/","").replace("absensi-kehadiran.html?id=", "").replace(url.searchParams.get("id") + "&", "").replace("url=", "")
-    const user_name = document.getElementById('full_name').value
-    const email = document.getElementById('email').value
-    const fixed_link = link.replace('REPLACE_NAME', user_name).replace("REPLACE_EMAIL", email)
-
-    console.log(fixed_link)
     document.getElementById("absence-form").reset();
+    const fixedLink = urlTest.replace("REPLACE_NAME", fullName).replace("REPLACE_EMAIL", email)
     setTimeout(() => {
-        if (link != null) {
-            window.location.href = fixed_link;
+        if (urlTest != null) {
+            window.location.href = fixedLink;
+        } else {
+            window.location.href = window.location.href;
         }
     }, 3000);
 
-    
 }
 
 function handleFailure(error) {
