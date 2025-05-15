@@ -41,14 +41,15 @@ function serializeFormData(formData) {
     return obj;
 }
 
-function handleSuccess() {
+function handleSuccess(data) {
     notification('success', "Sukses!", "Terimakasih, atas penilaian anda.");
     document.getElementById("feedback-form").reset();
     display('submit-button', 'block');
     display('loading', 'none');
-    setTimeout(() => {
-        window.location.href = "/index.html";
-    }, 3000);
+    console.log(data)
+    // setTimeout(() => {
+    //     window.location.href = "/index.html";
+    // }, 3000);
 }
 
 function handleFailure(error) {
