@@ -89,7 +89,8 @@ async function generateAndPreviewPDF(id, name, training, heldOn, heldAt, serialN
 
   document.getElementById('download-btn').addEventListener('click', (event) => {
     event.preventDefault(); // prevent form submission or refresh
-    if (generatedPdf) generatedPdf.save("certificate.pdf");
+    const heldOnDate = heldOn.replace('HELD ON ','')
+    if (generatedPdf) generatedPdf.save(`TMI - ${name} - ${heldOnDate}.pdf`);
   });
 
 }
