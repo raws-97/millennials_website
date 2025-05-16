@@ -8,7 +8,14 @@ async function getCertificateById() {
             return;
         }
 
-        generateAndPreviewPDF(data.id, data.name, data.training_name, data.training_date, data.location, data.serial, data.pic, data.pic_title)
+        const certUrl = "https://millennialsinstitute.com/certificate.html?id=" + data.id
+
+        generateQRCodeBase64(certUrl, function (err, base64) {
+            if (err) return;
+            generateAndPreviewPDF(data.name, data.training_name, data.training_date, data.location, data.serial, data.pic, data.pic_title, base64)
+        });
+
+        
 
     } catch (error) {
         // handleErrors(error);

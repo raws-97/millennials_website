@@ -24,7 +24,18 @@ function splitText(text, maxWidth, pdf) {
   return lines;
 }
 
-async function generateAndPreviewPDF(id, name, training, heldOn, heldAt, serialNumber, picName, picTitle) {
+function generateQRCodeBase64(text, callback) {
+  QRCode.toDataURL(text, function (err, base64) {
+    if (err) {
+      console.error("QR Code generation failed:", err);
+      callback(err, null);
+    } else {
+      callback(null, base64);
+    }
+  });
+}
+
+async function generateAndPreviewPDF(name, training, heldOn, heldAt, serialNumber, picName, picTitle, qrCode64) {
   await loadFont();
 
   const img = new Image();
@@ -38,6 +49,10 @@ async function generateAndPreviewPDF(id, name, training, heldOn, heldAt, serialN
     pdf.addFont('customFont.ttf', 'CustomFont', 'normal');
     pdf.setFont('CustomFont');
     pdf.addImage(img, 'PNG', 0, 0, 297, 210);
+
+    const qrCode = new Image()
+    qrCode.src = qrCode64
+    pdf.addImage(qrCode, 'PNG', 264, 6, 26, 26)
 
     // Participant Info
     pdf.setFontSize(30).setTextColor(0, 0, 0);
@@ -65,10 +80,6 @@ async function generateAndPreviewPDF(id, name, training, heldOn, heldAt, serialN
     // Serial and ID
     pdf.setFontSize(12);
     pdf.text(serialNumber, centerX - pdf.getTextWidth(serialNumber) / 2, 204);
-
-    pdf.setFontSize(8);
-    const certId = "id: "+ id;
-    pdf.text(certId, 297 - pdf.getTextWidth(certId) - 3, 208);
 
     // Serial subtitle
     pdf.setFontSize(12);
