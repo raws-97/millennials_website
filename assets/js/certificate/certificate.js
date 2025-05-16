@@ -35,7 +35,7 @@ function generateQRCodeBase64(text, callback) {
   });
 }
 
-async function generateAndPreviewPDF(name, training, heldOn, heldAt, serialNumber, picName, picTitle, qrCode64) {
+async function generateAndPreviewPDF(name, training, heldOn, heldAt, serialNumber, picName, picTitle, qrCode64, sign=true) {
   await loadFont();
 
   const img = new Image();
@@ -53,6 +53,12 @@ async function generateAndPreviewPDF(name, training, heldOn, heldAt, serialNumbe
     const qrCode = new Image()
     qrCode.src = qrCode64
     pdf.addImage(qrCode, 'PNG', 264, 6, 26, 26)
+
+    if(sign){
+      const signImg = new Image();
+      signImg.src = 'assets/img/certificate/sign.png';
+      pdf.addImage(signImg, 'PNG', 230, 150, 40, 25)
+    }
 
     // Participant Info
     pdf.setFontSize(30).setTextColor(0, 0, 0);

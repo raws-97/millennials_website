@@ -9,10 +9,10 @@ async function getCertificateById() {
         }
 
         const certUrl = "https://millennialsinstitute.com/certificate.html?id=" + data.id
-
+        const signStatus = getSignStatusFromURL()
         generateQRCodeBase64(certUrl, function (err, base64) {
             if (err) return;
-            generateAndPreviewPDF(data.name, data.training_name, data.training_date, data.location, data.serial, data.pic, data.pic_title, base64)
+            generateAndPreviewPDF(data.name, data.training_name, data.training_date, data.location, data.serial, data.pic, data.pic_title, base64, signStatus)
         });
 
         
@@ -32,6 +32,17 @@ function getCertificateIdFromURL() {
     }
 
     return id;
+}
+
+function getSignStatusFromURL() {
+    const url = new URL(window.location.href);
+    const signStatus = url.searchParams.get("sign");
+
+    if (!signStatus) {
+        return true
+    }
+
+    return false;
 }
 
 async function fetchDataCertificateDataByID(id) {
