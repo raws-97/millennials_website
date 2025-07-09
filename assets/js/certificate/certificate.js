@@ -70,7 +70,14 @@ async function generateAndPreviewPDF(name, training, heldOn, heldAt, serialNumbe
     pdf.text(subTitle, centerX - pdf.getTextWidth(subTitle) / 2, 116);
 
     // Training title
-    const lines = splitText(training, 200, pdf);
+    const rawLines = training.split('\n'); // Split by manual line breaks
+    let lines = [];
+
+    rawLines.forEach(part => {
+      const wrapped = splitText(part, 200, pdf); // Wrap each part
+      lines = lines.concat(wrapped);
+    });
+
     pdf.setFontSize(20);
     lines.forEach((line, i) => {
       pdf.text(line, centerX - pdf.getTextWidth(line) / 2, 128 + i * 10);
