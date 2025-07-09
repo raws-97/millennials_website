@@ -79,7 +79,7 @@ async function generateAndPreviewPDF(name, training, heldOn, heldAt, serialNumbe
     // Dates and CEO info
     pdf.setFontSize(14);
     pdf.text(heldOn, 18, 180);
-    pdf.text(heldAt, 18, 190);
+    pdf.text(heldAt, 18, 187);
     pdf.text(picName, 239, 180);
     pdf.text(picTitle, 215, 190);
 
